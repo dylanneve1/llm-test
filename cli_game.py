@@ -70,3 +70,31 @@ def display_score(attempts):
     score += max(0, 100 - attempts * 10)  # Simple scoring system
     print(f'Your current score is: {score}')
     save_score(score)
+
+# Function to implement a timed guessing game mode
+import time
+
+def timed_guessing_game():
+    global score
+    level = 1
+    time_limit = 30  # 30 seconds for each level
+    while True:
+        number_to_guess = generate_number(level)
+        print(f'Level {level}: Guess the number between 1 and {100 + (level - 1) * 50} within {time_limit} seconds!')
+        start_time = time.time()
+        attempts = 0
+        while True:
+            guess = int(input("Enter your guess: "))
+            attempts += 1
+            if time.time() - start_time > time_limit:
+                print('Time is up!')
+                return
+            if guess < number_to_guess:
+                print("Too low!")
+            elif guess > number_to_guess:
+                print("Too high!")
+            else:
+                print(f'Congratulations! You guessed the number in {attempts} attempts.')
+                display_score(attempts)
+                level += 1  # Increase level after a successful guess
+                break
