@@ -52,3 +52,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# Function to save high scores
+high_scores = []
+
+def save_score(score):
+    high_scores.append(score)
+    high_scores.sort(reverse=True)
+    if len(high_scores) > 5:
+        high_scores.pop()  # Keep only top 5 scores
+    print('High Scores:', high_scores)
+
+# Update the display_score function to save scores
+
+def display_score(attempts):
+    global score
+    score += max(0, 100 - attempts * 10)  # Simple scoring system
+    print(f'Your current score is: {score}')
+    save_score(score)
